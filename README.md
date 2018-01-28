@@ -1,6 +1,6 @@
 # Machine-learning-exercises
 
-Machine learning exercises from: https://github.com/ageron/handson-ml following the hands on machine learning textbook
+Machine learning exercises from google machine learning recipes
 
 important things to consider (from ML recipe #3):
 
