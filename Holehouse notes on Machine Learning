@@ -1,0 +1,485 @@
+## My short notes on http://www.holehouse.org/mlclass/index.html
+
+### introduction
+
+Supervised learning:
+
+Classify dataset into known labels e.g. malignant or benign, this example is also an example of classification problems
+
+SVM: 
+
+Support vector machines can help deal with cases that have infinite features
+
+Unsupervised learning:
+
+Can take unlabelled data and cluster them together into groups
+
+e.g. seperate voices in a phone call with background noise
+
+Each training set should be passed to an algorithm and from there you should decide the best after trying multiple
+
+Linear regression:
+
+A minimisation problem is used to make the difference between predicted and actual as close as possible
+
+1/2m (h0(x^i) - y^i)^2
+
+Cost function: 
+
+We want to use the  cost function to minimise the amount of error for a data set going through an algorithm
+
+Gradient descent algorithm: 
+
+Helps to minimise the cost function for J value
+
+Helps you choose the best O0 and O1 value as params to the cost function
+
+Alpha is the number that determines the learning rate, if large you will do a large step and vice versa. This determines the step size as it goes down gradient decent
+
+Too small and it will take ages to finish, too large and it can overshoot and miss the minimum cost value (you miss the best value to use in cost function and thus fail to converge)
+
+Gradient descent is like the original value of 0j minus the learning rate on each iteration til you get to the best point with the lowest value possible
+
+
+### linear algebra review
+
+Matrices/2d arrays:
+
+Matrices are simply 2d arrays, can be accessed like this matrix[I][j] where I is row and j is col
+
+Vectors:
+
+Vectors are like a regular array, e.g. vector[I]
+Dimensions are determined by element length
+
+Matrix by vector multiplication
+
+[3 * 2] matrix * [2 * 1] matrix = [3 * 1] matrix
+
+Predictions can be the matrix * the parameters of the function
+
+To multiple a matrix by a vector you take the row A and multiply it by the vector, summing it at the end then moving to the next row
+
+Matrix multiplication properties
+
+Commutativity: when dealing with scalar numbers, multiplication becomes commutative, e.g. 3 * 5 == 5 * 3 but this is not the case with matrices as A x B != B x A
+
+Like above, when summing you will end up with the values in different indices after the multiplication even when multiplied against a vector (different row multiplied by different index in vector for example). This means that matrix multiplications are associative e.g. A * (B * C) == (A * B) * C as the multiplication is done against the sum and the order will end up the same i.e. the rows will be multiplied by the same column. 
+
+Inverse and transpose operations
+
+Inverse number is the number you multiply a number by to get the identifying element, e.g. for 3, 3 * 3 -1 = 1 (1 is the identifying number) as the value equals one as a result
+
+0 has no inverse
+
+Transposing is taking a matrix (n * m) and converting it to (m * n) i.e. swapping rows and columns.
+
+First row becomes first column etc.
+
+Linear regression with multiple features
+
+While (n >= 1):
+	update 0j for j = 0,…n
+
+This is 0j minus the learning rate of alpha
+
+Learning rate * 1/m * sum of hypothesis with vector variable minus the actual value and times the index value in the loop for each example
+
+Ranges for each update should generally be between -3 to 3 (any bigger not good) and -1/3 to 1/3 is okay but smaller bad
+
+Mean normalisation
+
+Take a feature xi and replay it by (xi - mean) / max, this will average out the features
+
+You can also use standard deviation instead of max
+
+If gradient descent is working then the j(0) value should decrease after each iteration, if increasing it is probably because alpha is too large
+
+Number of iterations varies broadly so it is difficult to guess in advance how many iterations will be needed
+
+Polynomial regression:
+
+To change linear regression to polynomial in a simple way, you can take each value and power it to its index e.g. x1 = x**1, x2 = x**2
+
+Normal equation:
+
+Normal equation uses a simplified cost function j(0) = a0^2 + b0 + c which is a quadratic equation, 0 (0 is theta btw) is just a real number not a vector
+
+Normal equation does not require feature scaling 
+
+### Classification
+
+Determine what class a data input should be, e.g. spam not spam
+
+Logistical regression
+
+If above or below a certain point it is either part of a class or not
+
+H0(x) = 1 / 1+ e ^ -0tx
+
+H0(x) = probability y = 1 (positive or negative) given x and theta 0
+
+Decision boundary
+
+H0(x) = g(0o + o1x1 + 02x2)
+
+If x1 + x2 >= 3 then predict y = 1
+
+Cost(h0, (x), y) = -ylog(h0(x) - (1-y)log(1-h0(x)))
+
+### Regularisation 
+
+Overfitting: too much data being used to extrapolate - low bias
+Underfitting: Too little data being used - high bias
+
+Cost function optimisation for regularisation 
+
+Make some of the theta 0 values really small
+
+### Neural nets
+
+We need neural nets to handle complex and large data sets
+
+Good for complex non linear hypothesises even with large feature space
+
+Inspired by human brain, theory is that the human brain has only one learning algorithm because it can learn how to see from other areas of the body if trained to, like seeing from the tongue. 
+
+Neural networks notation
+
+Ai(j) - activation of unit I in layer j
+
+This is the activation of the 1st unit in there second layer, i.e. the value which is computed and outputted by that node 
+
+0(j) matrix of parameters controlling the function mapping from layer j to layer j + 1
+
+These are the params for controlling the mapping from one layer to the next 
+
+Forward propagation
+
+Algorithm to take your neural network and the initial input and pushes the input through the network 
+
+This leads to generation of an output hypothesis
+
+Backward propagation: 
+
+Takes the output from your network and compares it to the real value to calculate how wrong the params were 
+
+Using the error calculated, it back calculates the error associated with each unit from the preceding layer, this goes on til the input layer 
+
+The error measurements can be used to calculate partial derivatives which are used to minimise the cost function 
+
+.* multiply two vectors 
+
+Multiplying a [5 x 4] matrix with a [4 x 1] matrix will result in a [5x1] matrix as the row and col values of the first matrix will be multiplied together to a single column with multiple rows
+
+Epsilon, arbitrarily small positive value
+
+If epsilon becomes really small then the term becomes the slopes derivative
+
+### Advice for applying machine learning 
+
+Handling large errors:
+
+Get more training data
+Smaller set of features
+Get additional features
+Decrease or increase regularisation term 
+
+### Machine learning system design
+
+Finding spam emails: you can try to design a classifier to find patterns and determine them as spam or not
+
+It could be that spammers often use typos to evade common word detection e.g. jumbo at gmail dot com 
+
+Let evidence influence optimisation features 
+
+Can alter classifier params so that if we want to have a strict criteria for y = 1, we can make it y = 1 only if x >= .8 or vice versa…
+
+More data usually helps with model accuracy
+
+### Support vector machines
+
+To build a SVM we need to redefine the cost function by adding two straight lines instead of a curved line to approximate the logistic regression y = 1 function 
+
+Vector inner product = v1u1 + v2u2 + vnun
+
+Length of p is calculated by the square root of each vector value combined 
+
+Landmarks are points placed on a graph to define the boundaries of the dataset
+
+Choosing the landmarks
+
+Take the training data and for each example place a landmark at exactly the same location
+
+You end up with the length of the vector landmarks
+
+SVM hypothesis with kernals
+
+Predict y = 1 if (OTf) >= 0
+
+Because O = [lengthOfData + 1 X 1]
+And f (feature vector) = [lengthOfData + 1 X 1]
+
+Feature vector f1 is always 1
+
+SVM training with kernels
+
+### Clustering 
+
+Grouping data into a structure, if unsupervised it will try to determine the structure based on the data features, if supervised it will attempt to do it by fitting a hypothesis to a set of labelled data 
+
+Clustering is good for:
+
+Market segmentation- grouping customers into segments 
+
+Social network analysis- facebook smart lists 
+
+Organising computer clusters and data centres for network layout and location
+
+Astronomical data analysis - understanding galaxy formation 
+
+K means algorithm 
+
+An algorithm to automatically group the data into coherent clusters 
+
+K - means is by far the most widely used clustering algorithm
+
+Algorithm overview
+
+Randomly allocate two points as the cluster centroids - have as many as you want to do
+Cluster assignment step- go through each example and depending on whether it is closer to the red or blue centroid assign each point to one of the two clusters
+Move centroid step- take each centroid and move to the average of the correspondingly assigned data points 
+Repeat 2 and 3 until you hit convergence 
+
+Local optimum in a cluster is the lowest cost function value in a cluster, global optimum is the lowest cost function value in all the data
+
+
+### Dimensionality reduction (PCA)
+
+Motivation 1: data compression
+
+Dimensionality reduction allows you to simplify your data set, e.g. removing redundant data like different units for the same attribute, reducing the data to 1d from 2d 
+
+Motivation 2: visualisation 
+
+It’s hard to visualise dimensional data, hence reducing the dimensions helps this 
+
+PCA algorithm
+
+Before applying PCA we must do data preprocessing
+
+Given a set of unlabelled examples we must
+
+1. Mean normalisation - replace each xj^1 with xj - μj - determine the mean value of each feature set and then for each feature, subtract the mean from the value so we can rescale the mean to be 0
+Feature scaling, if features have very different scales then we can scale them so they all have a comparable range of values e.g. xj^I is set to (xj - μj) / sj where sj is some measure of the range, could be biggest - smallest or standard deviation which is the most common method 
+
+Need to compute two things, first the u vectors i.e. the new planes and the z vectors which are the new, lower dimensionality feature vectors 
+
+Algorithm description
+
+Reducing data from n dimensional to k dimensional
+
+Compute the covariance matrix, in Matlab or octave this can be done with sigma = (1/m) * (X’ * X)
+
+Compute the eigenvectors of matrix sum with [U, S, V] = svd(sigma) 
+
+Svd = singular value decomposition which is more numerically stable than eig, eig also gives the eigenvector 
+
+U,S and v are matrices, U matrix is also an [n X n] matrix
+
+Turns out the columns of U are the u vectors we want
+
+Choosing the number of principle components
+
+How do we chose k
+
+K is the number of principle components 
+
+### Anomaly detection 
+
+CV = cross validation 
+
+Used to help find data points which are abnormal compared to the rest 
+
+This has many applications such as 
+
+Fraud detection: find abnormal transactions and block them for example
+
+Manufacturing abnormalities and fault detection 
+
+Monitoring computer performance in a data centre 
+
+The Gaussian distribution
+
+Also called the normal distribution
+
+e.g. say data set is made up of real numbers where the mean is μ and variance is σ2 
+
+σ2 is the standard deviation specifying the width of the gaussian probability
+
+The data has a Gaussian distribution 
+
+If we have labelled data why not use a supervised learning algorithm instead?
+
+We should use anomaly detection if:
+
+We have a very small number of positive examples because it we can then save the positive examples for CV and the test set, there is not enough data to learn positive examples 
+
+Have a large set of negative examples
+
+Or have many types of anomalies - it is hard for an algorithm to learn from positive examples when anomalies may look nothing like each other, e.g. many ways to do fraud but spam usually has many uniform patterns of examples 
+
+### Recommender Systems
+
+These systems use algorithms to make a recommendation such as for amazon or iTunes etc.
+
+Content based recommendation:
+
+Let’s say there are romance and action films to compare
+
+Based on users previous ratings of films in a vector we can predict their rating to a film based on the genre and previous ratings 
+
+How we learn from this data
+
+Create some parameters which give values as close as those seen in the data when applied 
+
+Sum over all values of I (all the movies the user has used) when all the films that the user has rated
+
+Based on these ratings we should be able to tell whether the next movie falls into a low or high rating depending on the person based on their previous ratings. e.g. if carol (who likes romance) rates movie x as 5, it is likely to be a romance and thus likely to get a low rating with Bob who rates action high but romance low 
+
+Collaborative filtering algorithm 
+
+Given x (movie) estimate 0(1) rating
+
+Algorithm Structure
+
+Initialise 0^1,…,0^nu to small random values 
+Minimize cost function using gradient descent
+Given a user with params 0 and movie I, we predict a start rating 
+
+Vectorisation: low rank matrix factorisation
+
+How can we improve the collaborative filtering algorithm
+
+We start by working out another way of writing out our predictions 
+
+Take all the ratings by all the users and group them into a matrix Y
+
+With this we determine the (I,j) entry for EVERY movie
+
+We can define another matrix X 
+
+Take all the features for each movie and stack them into rows
+
+Think of each movie as one example and define matrix 0
+
+Take each per user parameter vector and stack them into rows
+
+Given our new matrices x and 0
+
+We can have a vectorised way of computing the prediction range by doing X * 0^T 
+
+Implementation detail: mean normalisation
+
+Useful for an example when predicting a user that has no ratings yet 
+
+How does it work? Group all our ratings into a matrix Y as before, compute the average rating of each file and store them in a dimensional column vector and then subtract the mean ratings 
+
+This normalises each film to have an average rating of 0
+
+Now we take this new set and use it with the collaborative filtering algorithm
+
+This means we can recommend the best average rated products to a user with no reviews 
+
+### Large Scale Machine learning 
+
+Learning with large data sets 
+
+With increased data comes the increased significant computational cost 
+
+If we had a large dataset we could see if we can train on a much smaller sample by randomly picking some data points
+
+You can check this by seeing if the smaller sample has a high variance problem (low bias, not enough sample example data points) 
+
+Or low variance, high bias -> increase features, increased sample example data points might not help 
+
+Stochastic Gradient descent 
+
+Incremental gradient descent- iterate each data point, with respect to cost of the 1st training example, now take a second step and try to fit the second training example better, and so on. 
+
+We may do this over the data set multiple times 
+
+The random shuffling at the start means we ensure the data is in a random order so we don’t bias the movement - this should also speed up convergence a little 
+
+Mini batch gradient descent 
+
+Can work faster than stochastic gradient descent 
+
+Use b examples in each iteration instead of batch gradient descent which does all examples in each iteration e.g. b = 10, m = 1000
+
+Stochastic gradient descent convergence
+
+Checking for convergence and tuning the learning rate alpha 
+
+Take cost function definition
+
+Half the squared error on a single example
+
+To check for convergence, every 1000 iterations we can plot the costs averaged over the last 1000 examples - this gives a running estimate of how well we’ve done on the last 1000 estimates, can thus check if convergence is happening 
+
+If you se a curve increasing then it may be divergence, should decrease the learning rate 
+
+Online learning
+
+Allows us to model problems where you have a continuous stream of data you want an algorithm to learn from, can take changing data and adapt
+
+e.g. x feature vector with deal details and y: whether the user took it or not 
+
+You can also split the world load among multiple machines (e.g. give 1/4 of the data set to each machine and process), this saves a lot of time, this is called map reduce and it is what dynamo db uses. Relational databases cannot scale to large sets because they cannot split the work over multiple machines.  
+
+### Application example OCR
+
+Photo OCR -> photo optical character recognition
+
+Can be difficult as characters can be different sizes and colours
+
+An easier example is spotting pedestrians in an image as the aspect ratios are pretty constant 
+
+Collect training set of positive and negative examples 
+
+Positive (y = 1) and negative (y = 0)
+
+We have an image but how do we find pedestrians? 
+
+Start with a patch in the image, run the patch through a classifier and hopefully it will return y = 0, as it is not a pedestrian 
+
+Slide over to the right and re run, choosing the rate of the amount of pixels each time. More pixels equals less computation and vice versa
+
+Get to the end then move back to the left until you’ve covered the whole image 
+
+Hopefully by repeatedly doing this process you eventually discover all the pedestrians in the image 
+
+For text, do the same with labeled data for positive examples of text and negative (not text)
+
+The classifier runs and you black out the irrelevant areas of the image and highlight where the classifier thinks there is text in white 
+
+For text detection we want to draw rectangles around all the regions where there is text in the image 
+
+For each pixel, is it within some distance of a white pixel? If so then colour it from black to white 
+
+Draw rectangles around white pixels 
+
+Stage two - character segmentation
+
+Look at a defined image patch and decide if there is a split between two characters
+
+We train a classifier to try and classify between positive and negative examples - run it on regions detected as containing text as defined previously 
+
+Use a 1 dimensional sliding window to move along text regions
+
+Does each window snapshot look like the split between two characters? If yes then instead a split else move on 
+
+Character classification 
+
+Use a standard OCR to take each character and decide with it is 
+
