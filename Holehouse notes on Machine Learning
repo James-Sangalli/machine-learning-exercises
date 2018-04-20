@@ -437,7 +437,7 @@ e.g. x feature vector with deal details and y: whether the user took it or not
 
 You can also split the world load among multiple machines (e.g. give 1/4 of the data set to each machine and process), this saves a lot of time, this is called map reduce and it is what dynamo db uses. Relational databases cannot scale to large sets because they cannot split the work over multiple machines.  
 
-### Application example OCR
+### Application example OCR - Optical character recognition 
 
 Photo OCR -> photo optical character recognition
 
